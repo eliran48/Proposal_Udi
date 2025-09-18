@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הצעת מחיר | אוטומציה לשליחת סרטונים בוואטסאפ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .proposal-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .proposal-header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #ffffff;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-info h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .header-info p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .provider-info {
+            text-align: left;
+            flex-shrink: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-logo {
+            max-width: 130px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .provider-details {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .provider-details p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        
+        .provider-details p strong {
+             color: #0056b3;
+             font-size: 1.1em;
+        }
+
+        .provider-details a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .provider-details a:hover {
+            text-decoration: underline;
+        }
+
+
+        .proposal-body {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #0056b3;
+            font-size: 1.5em;
+            margin-top: 0;
+            border-right: 4px solid #007bff;
+            padding-right: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%2328a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>') no-repeat right center;
+            padding-right: 35px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .terms-list {
+            list-style: none;
+            padding-right: 0;
+            counter-reset: terms-counter;
+        }
+
+        .terms-list li {
+            counter-increment: terms-counter;
+            margin-bottom: 15px;
+            padding-right: 40px;
+            position: relative;
+            font-size: 1em;
+            color: #555;
+        }
+
+        .terms-list li::before {
+            content: counter(terms-counter);
+            position: absolute;
+            right: 0;
+            top: 2px;
+            background-color: #6c757d;
+            color: #fff;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+
+        .interactive-demo {
+            background-color: #f8f9fa;
+            border: 1px dashed #ced4da;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .interactive-demo h3 {
+            margin-top: 0;
+            text-align: center;
+            color: #343a40;
+        }
+
+        .options-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-family: 'Heebo', sans-serif;
+            text-align: right;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .option-btn:hover {
+            border-color: #007bff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .option-btn.selected {
+            background-color: #e7f1ff;
+            border-color: #007bff;
+            color: #0056b3;
+            font-weight: 500;
+        }
+
+        #demo-result {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #e2f0d9;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            color: #388e3c;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .summary-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+        
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            color: #343a40;
+        }
+
+        .price {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #0056b3;
+        }
+        
+        .vat-note {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .signature-section {
+            border-bottom: 1px solid #eee;
+        }
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+            text-align: center;
+            color: #555;
+        }
+        .signature-field p {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .signature-line {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 30px;
+            background-color: #e7f1ff;
+        }
+
+        .cta-button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="proposal-container">
+        <header class="proposal-header">
+            <div class="header-info">
+                <h1>הצעת מחיר: שליחת ואטסאפים באוטומציה חכמה</h1>
+                <p>עבור: ניצן | תאריך: 18.09.2025</p>
+            </div>
+            <div class="provider-info">
+                <img src="https://i0.wp.com/eliranor.com/wp-content/uploads/2020/02/eliran-OR-%D7%9C%D7%95%D7%92%D7%95-%D7%A9%D7%A0%D7%99-%D7%A9%D7%A7%D7%95%D7%A3.png?w=500&ssl=1" alt="לוגו אלירן אור" class="header-logo">
+                <div class="provider-details">
+                    <p><strong>אלירן אור</strong></p>
+                    <p><a href="mailto:info@eliranor.com">info@eliranor.com</a></p>
+                    <p><a href="https://eliranor.com" target="_blank">eliranor.com</a></p>
+                    <p>055-3187548</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="proposal-body">
+            <section class="section">
+                <h2>שלום ניצן,</h2>
+                <p>בהמשך לשיחתנו, אני שמח להגיש לך הצעה להקמת מערך אוטומציה מתקדם לשליחת סרטונים מותאמים אישית למתעניינים חדשים ישירות בוואטסאפ. המערכת תדע לזהות את מצב הלקוח ולשלוח לו את המסר המדויק ביותר עבורו, ובכך להגדיל משמעותית את אחוזי ההמרה והחיבור למותג שלך.</p>
+            </section>
+
+            <section class="section">
+                <h2>תכולת הפרויקט</h2>
+                <ul>
+                    <li>הקמת וורקפלואו במערכת מאניצ'ט לשליחת וואטסאפים על פי סגמנטים של הלקוח</li>
+                    <li>הגדרת 3 תרחישים מרכזיים לשליחת סרטונים</li>
+                    <li>חיבור המערכת למקור הלידים שלך</li>
+                    <li>בדיקות מקיפות והבטחת איכות</li>
+                </ul>
+            </section>
+            
+            <section class="section">
+                <h2>תהליך העבודה</h2>
+                <p>התהליך יתבצע באופן הבא: כל ליד (מתעניין) חדש שייכנס למערכת יקלט באופן אוטומטי במערכת <strong>Manychat</strong>. מרגע הקליטה, האוטומציה תנתח את המידע שהתקבל ותשלח למתעניין הודעת וואטסאפ עם הסרטון המדויק ביותר עבור המצב המשפטי הספציפי שלו, בהתאם ללוגיקה שהוגדרה.</p>
+            </section>
+            
+            <section class="section">
+                <h2>כך תעבוד הלוגיקה: הדגמה אינטראקטיבית</h2>
+                <div class="interactive-demo">
+                    <h3>נסה בעצמך: באיזה מצב נמצא המתעניין?</h3>
+                    <div class="options-container">
+                        <button class="option-btn" data-video="1">חדלות פירעון ויש ברשותו נכס</button>
+                        <button class="option-btn" data-video="2">חדלות פירעון ויש ברשותו קופת פנסיה</button>
+                        <button class="option-btn" data-video="3">חדלות פירעון ללא נכס/פנסיה</button>
+                    </div>
+                    <div id="demo-result"></div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>סיכום והשקעה</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="icon">⏳</div>
+                        <h3>משך הפרויקט</h3>
+                        <p>עד <strong>7 ימי עבודה</strong><br>מרגע העברת התשלום</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">💰</div>
+                        <h3>השקעה בפרויקט</h3>
+                        <p class="price">2,450 ₪</p>
+                        <p class="vat-note">+ מע"מ</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2>תנאים כלליים</h2>
+                <ol class="terms-list">
+                    <li>תוקף ההצעה הינו 10 ימים ממועד שליחתה.</li>
+                    <li>התשלום יועבר במלואו טרם תחילת העבודה.</li>
+                    <li>ההצעה אינה כוללת עלויות חודשיות למערכות צד-שלישי (כמו Manychat, Make וכו'), אשר יחולו על הלקוח ישירות.</li>
+                    <li>ההצעה אינה כוללת כתיבת תוכן שיווקי (קריאייטיב) או עיצוב גרפי.</li>
+                    <li><strong>אחריות הלקוח:</strong> על הלקוח לוודא כי כלל הנמענים שאליהם יישלחו המסרים הינם מאושרי דיוור בהתאם לחוק. לא תהיה לספק כל אחריות משפטית בנוגע לחוקיות שליחת המסרים.</li>
+                </ol>
+            </section>
+            
+            <section class="section signature-section">
+                <h2>אישור ההצעה</h2>
+                <div class="signature-grid">
+                    <div class="signature-field">
+                        <span class="signature-line"></span>
+                        <p>שם הלקוח: ניצן</p>
+                    </div>
+                    <div class="signature-field">
+                        <span class="signature-line"></span>
+                        <p>חתימה</p>
+                    </div>
+                    <div class="signature-field">
+                        <span class="signature-line"></span>
+                        <p>תאריך</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <section class="cta-section">
+            <h2>מוכנים להפוך את הפניות לאוטומטיות וחכמות יותר?</h2>
+            <p>לאישור ההצעה והתחלת העבודה, יש ללחוץ על הכפתור מטה.</p>
+            
+            <form action="https://formspree.io/f/xeolbbzb" method="POST">
+            
+                <!-- Hidden fields that will be sent to your email -->
+                <input type="hidden" name="נושא ההצעה" value="אוטומציה לשליחת סרטונים בוואטסאפ">
+                <input type="hidden" name="לקוח" value="ניצן">
+                <input type="hidden" name="סכום" value="2,450 ₪ + מעמ">
+                
+                <button type="submit" class="cta-button">אני מאשר ורוצה להתחיל!</button>
+            </form>
+        </section>
+
+        <footer class="footer">
+            <p>ברכת שנה טובה ומוצלחת.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionButtons = document.querySelectorAll('.option-btn');
+            const resultDiv = document.getElementById('demo-result');
+
+            const videoMessages = {
+                '1': '<strong>מעולה!</strong> המערכת תזהה את המצב ותשלח אוטומטית את <strong>סרטון 1</strong>, המסביר על מימוש נכסים בהליך.',
+                '2': '<strong>מעולה!</strong> המערכת תזהה את המצב ותשלח אוטומטית את <strong>סרטון 2</strong>, המפרט על הגנה על זכויות פנסיוניות.',
+                '3': '<strong>מעולה!</strong> המערכת תזהה את המצב ותשלח אוטומטית את <strong>סרטון 3</strong>, המציג את המסלול להסדר נושים.'
+            };
+
+            optionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove selected class from all buttons
+                    optionButtons.forEach(btn => btn.classList.remove('selected'));
+                    // Add selected class to the clicked button
+                    this.classList.add('selected');
+
+                    const videoId = this.getAttribute('data-video');
+                    resultDiv.innerHTML = videoMessages[videoId];
+                    resultDiv.style.display = 'block';
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
