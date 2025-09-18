@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>הצעת מחיר | אוטומציה לשליחת סרטונים בוואטסאפ</title>
+    <title>הצעת מחיר | אוטומציה בוואטסאפ ותיעוד CRM</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap');
 
@@ -37,8 +37,9 @@
         
         .header-info h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 700;
+            line-height: 1.3;
         }
 
         .header-info p {
@@ -251,17 +252,27 @@
             color: #343a40;
         }
 
-        .price {
-            font-size: 1.8em;
+        .price-breakdown {
+            text-align: right;
+            font-size: 1.1em;
+        }
+        .price-breakdown p {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        .price-breakdown hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .price-breakdown .final-price {
+            font-size: 1.3em;
             font-weight: 700;
             color: #0056b3;
+            margin-top: 15px;
         }
-        
-        .vat-note {
-            font-size: 0.9em;
-            color: #6c757d;
-        }
-        
+
         .signature-section {
             border-bottom: 1px solid #eee;
         }
@@ -324,8 +335,8 @@
     <div class="proposal-container">
         <header class="proposal-header">
             <div class="header-info">
-                <h1>הצעת מחיר: שליחת ואטסאפים באוטומציה חכמה</h1>
-                <p>עבור: ניצן | תאריך: 18.09.2025</p>
+                <h1>הצעת מחיר: שליחת סרטונים מותאמים אישית בוואטסאפ ללידים + תיעוד ומעקב אישורי דיוור</h1>
+                <p>תאריך: 18.09.2025</p>
             </div>
             <div class="provider-info">
                 <img src="https://i0.wp.com/eliranor.com/wp-content/uploads/2020/02/eliran-OR-%D7%9C%D7%95%D7%92%D7%95-%D7%A9%D7%A0%D7%99-%D7%A9%D7%A7%D7%95%D7%A3.png?w=500&ssl=1" alt="לוגו אלירן אור" class="header-logo">
@@ -340,8 +351,8 @@
 
         <main class="proposal-body">
             <section class="section">
-                <h2>שלום ניצן,</h2>
-                <p>בהמשך לשיחתנו, אני שמח להגיש לך הצעה להקמת מערך אוטומציה מתקדם לשליחת סרטונים מותאמים אישית למתעניינים חדשים ישירות בוואטסאפ. המערכת תדע לזהות את מצב הלקוח ולשלוח לו את המסר המדויק ביותר עבורו, ובכך להגדיל משמעותית את אחוזי ההמרה והחיבור למותג שלך.</p>
+                <h2>היי ניצן,</h2>
+                <p>בהמשך לשיחתנו, אני שמח להגיש לך הצעה להקמת מערך אוטומציה מתקדם לשליחת סרטונים מותאמים אישית למתעניינים חדשים, יחד עם סנכרון נתונים חיוני למערכת ה-CRM שלכם.</p>
             </section>
 
             <section class="section">
@@ -350,13 +361,14 @@
                     <li>הקמת וורקפלואו במערכת מאניצ'ט לשליחת וואטסאפים על פי סגמנטים של הלקוח</li>
                     <li>הגדרת 3 תרחישים מרכזיים לשליחת סרטונים</li>
                     <li>חיבור המערכת למקור הלידים שלך</li>
+                    <li>סנכרון אישורי דיוור מטפסי הלידים למערכת ה-CRM שלכם</li>
                     <li>בדיקות מקיפות והבטחת איכות</li>
                 </ul>
             </section>
             
             <section class="section">
                 <h2>תהליך העבודה</h2>
-                <p>התהליך יתבצע באופן הבא: כל ליד (מתעניין) חדש שייכנס למערכת יקלט באופן אוטומטי במערכת <strong>Manychat</strong>. מרגע הקליטה, האוטומציה תנתח את המידע שהתקבל ותשלח למתעניין הודעת וואטסאפ עם הסרטון המדויק ביותר עבור המצב המשפטי הספציפי שלו, בהתאם ללוגיקה שהוגדרה.</p>
+                <p>התהליך יתבצע באופן הבא: כל ליד (מתעניין) חדש שייכנס למערכת יקלט באופן אוטומטי במערכת <strong>Manychat</strong>. מרגע הקליטה, האוטומציה תנתח את המידע שהתקבל ותשלח למתעניין הודעת וואטסאפ עם הסרטון המדויק ביותר עבור המצב המשפטי הספציפי שלו, בהתאם ללוגיקה שהוגדרה. במקביל, אישור הדיוור שלו יתועד וייסונכרן אוטומטית למערכת ה-CRM.</p>
             </section>
             
             <section class="section">
@@ -378,13 +390,19 @@
                     <div class="summary-card">
                         <div class="icon">⏳</div>
                         <h3>משך הפרויקט</h3>
-                        <p>עד <strong>7 ימי עבודה</strong><br>מרגע העברת התשלום</p>
+                        <p>עד <strong>10 ימי עבודה</strong><br>מרגע קבלת התשלום והחומרים</p>
                     </div>
                     <div class="summary-card">
                         <div class="icon">💰</div>
                         <h3>השקעה בפרויקט</h3>
-                        <p class="price">2,450 ₪</p>
-                        <p class="vat-note">+ מע"מ</p>
+                        <div class="price-breakdown">
+                            <p>אוטומציה בוואטסאפ: <span>2,450 ₪</span></p>
+                            <p>סנכרון אישורי דיוור ל-CRM: <span>550 ₪</span></p>
+                            <hr>
+                            <p><strong>סה"כ לפני מע"מ:</strong> <span><strong>3,000 ₪</strong></span></p>
+                            <p>מע"מ (18%): <span>540 ₪</span></p>
+                            <p class="final-price"><strong>סה"כ לתשלום:</strong> <span><strong>3,540 ₪</strong></span></p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -405,7 +423,7 @@
                 <div class="signature-grid">
                     <div class="signature-field">
                         <span class="signature-line"></span>
-                        <p>שם הלקוח: </p>
+                        <p>שם הלקוח:</p>
                     </div>
                     <div class="signature-field">
                         <span class="signature-line"></span>
@@ -427,9 +445,9 @@
             <form action="https://formspree.io/f/xeolbbzb" method="POST">
             
                 <!-- Hidden fields that will be sent to your email -->
-                <input type="hidden" name="נושא ההצעה" value="אוטומציה לשליחת סרטונים בוואטסאפ">
-                <input type="hidden" name="לקוח" value="ניצן">
-                <input type="hidden" name="סכום" value="2,450 ₪ + מעמ">
+                <input type="hidden" name="נושא ההצעה" value="אוטומציה וסנכרון CRM">
+                <input type="hidden" name="לקוח" value="">
+                <input type="hidden" name="סכום" value="3,000 ₪ + מעמ (סה״כ 3,540 ₪)">
                 
                 <button type="submit" class="cta-button">אני מאשר ורוצה להתחיל!</button>
             </form>
