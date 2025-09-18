@@ -273,34 +273,45 @@
             margin-top: 15px;
         }
 
-        .signature-section {
-            border-bottom: 1px solid #eee;
-        }
-        .signature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-top: 30px;
-            text-align: center;
-            color: #555;
-        }
-        .signature-field p {
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-        .signature-line {
-            display: block;
-            width: 100%;
-            height: 1px;
-            background-color: #ccc;
-            margin-bottom: 10px;
-        }
-
         .cta-section {
             text-align: center;
             padding: 30px;
             background-color: #e7f1ff;
         }
+        
+        .cta-section h2 {
+           border: none;
+           padding-right: 0;
+           color: #003b7e;
+        }
+        
+        .cta-section .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 700px;
+            margin: 30px auto;
+            text-align: right;
+        }
+        
+        .cta-section .signature-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1em;
+            color: #002b5c;
+            font-weight: 500;
+        }
+
+        .cta-section .signature-field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #bdd4f1;
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
 
         .cta-button {
             background-color: #28a745;
@@ -314,6 +325,7 @@
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
             display: inline-block;
+            margin-top: 20px;
         }
 
         .cta-button:hover {
@@ -351,7 +363,7 @@
 
         <main class="proposal-body">
             <section class="section">
-                <h2>היי ניצן,</h2>
+                <h2>שלום,</h2>
                 <p>בהמשך לשיחתנו, אני שמח להגיש לך הצעה להקמת מערך אוטומציה מתקדם לשליחת סרטונים מותאמים אישית למתעניינים חדשים, יחד עם סנכרון נתונים חיוני למערכת ה-CRM שלכם.</p>
             </section>
 
@@ -417,41 +429,35 @@
                     <li><strong>אחריות הלקוח:</strong> על הלקוח לוודא כי כלל הנמענים שאליהם יישלחו המסרים הינם מאושרי דיוור בהתאם לחוק. לא תהיה לספק כל אחריות משפטית בנוגע לחוקיות שליחת המסרים.</li>
                 </ol>
             </section>
-            
-            <section class="section signature-section">
-                <h2>אישור ההצעה</h2>
-                <div class="signature-grid">
-                    <div class="signature-field">
-                        <span class="signature-line"></span>
-                        <p>שם הלקוח:</p>
-                    </div>
-                    <div class="signature-field">
-                        <span class="signature-line"></span>
-                        <p>חתימה</p>
-                    </div>
-                    <div class="signature-field">
-                        <span class="signature-line"></span>
-                        <p>תאריך</p>
-                    </div>
-                </div>
-            </section>
-
         </main>
         
-        <section class="cta-section">
-            <h2>מוכנים להפוך את הפניות לאוטומטיות וחכמות יותר?</h2>
-            <p>לאישור ההצעה והתחלת העבודה, יש ללחוץ על הכפתור מטה.</p>
-            
-            <form action="https://formspree.io/f/xeolbbzb" method="POST">
-            
+        <form action="https://formspree.io/f/xeolbbzb" method="POST">
+            <section class="cta-section">
+                <h2>אישור ההצעה והתחלת העבודה</h2>
+                <p>נא למלא את הפרטים מטה וללחוץ על הכפתור לאישור ההצעה.</p>
+                
+                <div class="signature-grid">
+                    <div class="signature-field">
+                        <label for="clientName">שם החברה</label>
+                        <input type="text" id="clientName" name="שם החברה" placeholder="נא להזין את שם החברה" required>
+                    </div>
+                    <div class="signature-field">
+                        <label for="signature">חתימה (הקלדת שם מלא)</label>
+                        <input type="text" id="signature" name="חתימה" placeholder="הקלדת השם מהווה חתימה" required>
+                    </div>
+                    <div class="signature-field">
+                        <label for="approvalDate">תאריך</label>
+                        <input type="date" id="approvalDate" name="תאריך אישור" required>
+                    </div>
+                </div>
+
                 <!-- Hidden fields that will be sent to your email -->
                 <input type="hidden" name="נושא ההצעה" value="אוטומציה וסנכרון CRM">
-                <input type="hidden" name="לקוח" value="">
                 <input type="hidden" name="סכום" value="3,000 ₪ + מעמ (סה״כ 3,540 ₪)">
                 
                 <button type="submit" class="cta-button">אני מאשר ורוצה להתחיל!</button>
-            </form>
-        </section>
+            </section>
+        </form>
 
         <footer class="footer">
             <p>ברכת שנה טובה ומוצלחת.</p>
@@ -460,6 +466,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Interactive demo script
             const optionButtons = document.querySelectorAll('.option-btn');
             const resultDiv = document.getElementById('demo-result');
 
@@ -471,16 +478,20 @@
 
             optionButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Remove selected class from all buttons
                     optionButtons.forEach(btn => btn.classList.remove('selected'));
-                    // Add selected class to the clicked button
                     this.classList.add('selected');
-
                     const videoId = this.getAttribute('data-video');
                     resultDiv.innerHTML = videoMessages[videoId];
                     resultDiv.style.display = 'block';
                 });
             });
+
+            // Set current date for the approval date input
+            const approvalDateInput = document.getElementById('approvalDate');
+            if (approvalDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                approvalDateInput.value = today;
+            }
         });
     </script>
 
